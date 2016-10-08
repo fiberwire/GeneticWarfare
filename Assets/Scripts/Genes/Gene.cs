@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System;
 
 
-public class Gene {
-    public Action apply;
+public abstract class Gene {
+    public string word;
+    public abstract void apply();
 }
 
 /*

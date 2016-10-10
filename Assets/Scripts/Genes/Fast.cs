@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Genes {
-    class Fast : Gene {
+    class Fast : UnitGene {
         Organism org;
         float moveSpeed;
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Genes {
-    class Healthy : Gene {
+    class Healthy : UnitGene {
 
         float maxHealth;
         float healthRegen;

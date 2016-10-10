@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Genes {
-    class Fertile : Gene {
+    class Fertile : UnitGene {
         Organism org;
         float reproductionRate;
 

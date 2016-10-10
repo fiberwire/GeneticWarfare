@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Genes {
-    class Big : Gene {
+    class Big : UnitGene {
         Organism org;
         float size;
         float metabolicRate; //increase energy requirement once it is added as a stat

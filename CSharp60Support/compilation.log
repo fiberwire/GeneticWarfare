@@ -1,0 +1,30 @@
+********************************************************************************
+*                    Wednesday, October 12, 2016 7:16:16 PM                    *
+********************************************************************************
+CSharpCompilerWrapper.exe version: 1.10.0.0
+Platform: Windows
+Target assembly: Assembly-CSharp.dll
+Project directory: C:\Users\Andrew\Projects\Unity\Genetic Warfare
+Unity 'Data' or 'Frameworks' directory: E:/Unity/Editor/Data
+Compiler: Microsoft C# 6.0
+
+- Compilation -----------------------------------------------
+
+Process: C:\Users\Andrew\Projects\Unity\Genetic Warfare\CSharp60Support\Roslyn\csc.exe
+Arguments: -nostdlib+ -noconfig -nologo -r:"E:/Unity/Editor/Data\Mono/lib/mono/2.0/mscorlib.dll" -r:"E:/Unity/Editor/Data\Mono/lib/mono/2.0/System.dll" -r:"E:/Unity/Editor/Data\Mono/lib/mono/2.0/System.Core.dll" -r:"E:/Unity/Editor/Data\Mono/lib/mono/2.0/System.Xml.dll" @Temp/UnityTempFile-9be637c8f6656be4a8c6237e8d62d61c
+Exit code: 0
+Elapsed time: 3.42 sec
+
+- Compiler output (0 lines):
+
+- Compiler errors (1 line):
+0: Assets\Scripts\Aging.cs(10,27): warning CS0108: 'Aging.renderer' hides inherited member 'Component.renderer'. Use the new keyword if hiding was intended.
+
+- PDB to MDB conversion --------------------------------------
+
+Process: C:\Users\Andrew\Projects\Unity\Genetic Warfare\CSharp60Support\Roslyn\pdb2mdb.exe
+Arguments: Temp\Assembly-CSharp.dll
+Exit code: 0
+Elapsed time: 0.14 sec
+
+- pdb2mdb.exe output (0 lines):

@@ -32,30 +32,18 @@ public class Stats : MonoBehaviour {
     public float healthRegenDecayFactor;
 
     //stats properties
-    public float MaxHealth { get { return (maxHealth + genetics.maxHealth) * (HealthGrowthFactor - HealthDecayFactor); } }
-    public float MaxEnergy { get { return (maxEnergy + genetics.maxEnergy) * (EnergyGrowthFactor - EnergyDecayFactor); } }
+    public float MaxHealth { get { return (maxHealth + genetics.maxHealth) * HealthDecayFactor; } }
+    public float MaxEnergy { get { return (maxEnergy + genetics.maxEnergy) * EnergyDecayFactor; } }
     public float Longevity { get { return longevity + genetics.longevity; } }
     public float EnergyReq { get { return metabolicRate + genetics.metabolicRate; } }
-    public float MoveSpeed { get { return (moveSpeed + genetics.moveSpeed) * (MoveSpeedGrowthFactor - MoveSpeedDecayFactor); } }
+    public float MoveSpeed { get { return (moveSpeed + genetics.moveSpeed) * MoveSpeedDecayFactor; } }
     public float ReproductionRate { get { return reproductionRate + genetics.reproductionRate; } }
-    public float Size { get { return (size + genetics.size) * (SizeGrowthFactor - SizeDecayFactor); } }
-    public float HealthRegen { get { return (healthRegen + genetics.healthRegen) * (HealthRegenGrowthFactor - HealthRegenDecayFactor); } }
+    public float Size { get { return (size + genetics.size) * SizeDecayFactor; } }
+    public float HealthRegen { get { return (healthRegen + genetics.healthRegen) * HealthRegenDecayFactor; } }
 
-    //aging factor properties
-    public float HealthGrowthFactor {
-        get {
-            return Mathf.Lerp(0.1f, healthGrowthFactor + genetics.healthGrowthFactor, aging.growth);
-        }
-    }
     public float HealthDecayFactor {
         get {
             return Mathf.Lerp(0.1f, healthDecayFactor + genetics.healthDecayFactor, aging.decay);
-        }
-    }
-
-    public float HealthRegenGrowthFactor {
-        get {
-            return Mathf.Lerp(0.1f, healthRegenGrowthFactor + genetics.healthRegenGrowthFactor, aging.growth);
         }
     }
     public float HealthRegenDecayFactor {
@@ -64,33 +52,18 @@ public class Stats : MonoBehaviour {
         }
     }
 
-    public float SizeGrowthFactor {
-        get {
-            return Mathf.Lerp(0.1f, sizeGrowthFactor + genetics.sizeGrowthFactor, aging.growth);
-        }
-    }
     public float SizeDecayFactor {
         get {
             return Mathf.Lerp(0.1f, sizeDecayFactor + genetics.sizeDecayFactor, aging.decay * 0.66f);
         }
     }
 
-    public float EnergyGrowthFactor {
-        get {
-            return Mathf.Lerp(0.1f, energyGrowthFactor + genetics.energyGrowthFactor, aging.growth);
-        }
-    }
     public float EnergyDecayFactor {
         get {
             return Mathf.Lerp(0.1f, energyDecayFactor + genetics.energyDecayFactor, aging.decay);
         }
     }
 
-    public float MoveSpeedGrowthFactor {
-        get {
-            return Mathf.Lerp(0.1f, moveSpeedGrowthFactor + genetics.moveSpeedGrowthFactor, aging.growth);
-        }
-    }
     public float MoveSpeedDecayFactor {
         get {
             return Mathf.Lerp(0.1f, moveSpeedDecayFactor + genetics.moveSpeedDecayFactor, aging.decay);

@@ -12,7 +12,9 @@ public class Aging : MonoBehaviour {
 
     public float decay {
         get {
-            return age/organism.stats.Longevity;
+            var decay = 1 - (age - (organism.stats.Longevity * 4 / 5)) / (organism.stats.Longevity / 5);
+            var clamped = Mathf.Clamp(decay, 0, 1);
+            return clamped;
         }
     }
 
@@ -26,14 +28,18 @@ public class Aging : MonoBehaviour {
                 age += Time.deltaTime;
             });
 
+        update
+            .Where(_ => decay < 1)
+            .Subscribe(_ => Debug.Log(decay));
+
         //update color according to age
         update
             .Subscribe(_ => {
                 renderer.color = new Color(
-                    r: Mathf.Lerp(colorNormal.r, colorOld.r, decay),
-                    b: Mathf.Lerp(colorNormal.b, colorOld.b, decay),
-                    g: Mathf.Lerp(colorNormal.g, colorOld.g, decay),
-                    a: Mathf.Lerp(colorNormal.a, colorOld.a, decay));
+                    r: Mathf.Lerp(colorNormal.r, colorOld.r, 1 - decay),
+                    b: Mathf.Lerp(colorNormal.b, colorOld.b, 1 - decay),
+                    g: Mathf.Lerp(colorNormal.g, colorOld.g, 1 - decay),
+                    a: Mathf.Lerp(colorNormal.a, colorOld.a, 1 - decay));
 
             });
 

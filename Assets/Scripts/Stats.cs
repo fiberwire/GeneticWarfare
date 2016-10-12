@@ -43,30 +43,30 @@ public class Stats : MonoBehaviour {
 
     public float HealthDecayFactor {
         get {
-            return Mathf.Lerp(0.1f, healthDecayFactor + genetics.healthDecayFactor, aging.decay);
+            return Mathf.Lerp(0.1f, healthDecayFactor + genetics.healthDecayFactor, Mathf.Max(aging.decay, .8f));
         }
     }
     public float HealthRegenDecayFactor {
         get {
-            return Mathf.Lerp(0.1f, healthRegenDecayFactor + genetics.healthRegenDecayFactor, aging.decay);
+            return Mathf.Lerp(0.1f, healthRegenDecayFactor + genetics.healthRegenDecayFactor, Mathf.Max(aging.decay, .8f));
         }
     }
 
     public float SizeDecayFactor {
         get {
-            return Mathf.Lerp(0.1f, sizeDecayFactor + genetics.sizeDecayFactor, aging.decay * 0.66f);
+            return Mathf.Lerp(0.1f, sizeDecayFactor + genetics.sizeDecayFactor, Mathf.Max(aging.decay, .8f));
         }
     }
 
     public float EnergyDecayFactor {
         get {
-            return Mathf.Lerp(0.1f, energyDecayFactor + genetics.energyDecayFactor, aging.decay);
+            return Mathf.Lerp(0.1f, energyDecayFactor + genetics.energyDecayFactor, Mathf.Max(aging.decay, .8f));
         }
     }
 
     public float MoveSpeedDecayFactor {
         get {
-            return Mathf.Lerp(0.1f, moveSpeedDecayFactor + genetics.moveSpeedDecayFactor, aging.decay);
+            return Mathf.Lerp(0.1f, moveSpeedDecayFactor + genetics.moveSpeedDecayFactor, Mathf.Max(aging.decay, .8f));
         }
     }
 

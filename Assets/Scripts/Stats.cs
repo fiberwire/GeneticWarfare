@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UniRx;
 using UnityEngine;
 
 public class Stats : MonoBehaviour {
@@ -71,7 +72,7 @@ public class Stats : MonoBehaviour {
     }
 
     void Start() {
-        StartCoroutine(apply());
+        apply().ToObservable().Subscribe();
     }
 
     IEnumerator apply() {

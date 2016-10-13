@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UniRx;
 
 public class Organism : MonoBehaviour {
 
@@ -33,15 +34,18 @@ public class Organism : MonoBehaviour {
         OnDeath += () => {
             Destroy(gameObject);
         };
-        
+
+        genomeChanged += gen => {
+            GeneParser.parse(gen);
+        };
+
         cam = Camera.main.GetComponent<GuideCamera>();
 
         if (genome == null) genome = new Genome(this);
-        genomeChanged += genetics.apply;
 
-        StartCoroutine(move());
-        StartCoroutine(regenHealth());
-        genomeChanged(genome);
+        move().ToObservable().Subscribe();
+        regenHealth().ToObservable().Subscribe();
+        
     }
 
     IEnumerator regenHealth() {
@@ -54,8 +58,7 @@ public class Organism : MonoBehaviour {
 
             if (health + regen * Time.deltaTime <= maxHealth) {
                 health += regen * Time.deltaTime;
-            }
-            else {
+            } else {
                 health = maxHealth;
             }
 
@@ -121,16 +124,15 @@ public class Organism : MonoBehaviour {
             );
     }
 
-    public void DoDamage(float damage){
+    public void DoDamage(float damage) {
         if (!initializedHealthAndEnergy) return;
 
-        if (health > damage){ //if damage won't kill organism
+        if (health > damage) { //if damage won't kill organism
             health -= damage;
             if (OnDamage != null) {
                 OnDamage();
             }
-        }
-        else { //if damage will kill organism
+        } else { //if damage will kill organism
             health = 0;
             if (OnDeath != null) {
                 OnDeath();

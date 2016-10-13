@@ -37,17 +37,8 @@ public class Genetics : MonoBehaviour {
 
     }
 
-    //apply genetic bonuses, whatever they may be
-    public void apply(Genome gen) {
-        reset();
-
-        foreach (var g in gen.genes) {
-            g.apply();
-        }
-    }
-
     //zero out genetic bonuses
-    private void reset() {
+    public void reset() {
         maxHealth = 0;
         maxEnergy = 0;
         longevity = 0;

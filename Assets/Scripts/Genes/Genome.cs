@@ -1,32 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
 
 public class Genome {
     public List<Chromosome> chromosomes;
 
-    public Genome(Organism org) {
+    public Organism organism;
+
+    public Genome(Organism org, int chromes = 50, int chromeLength = 50) {
+        organism = org;
+
         chromosomes = new List<Chromosome>();
-        50.times(i => {
-            chromosomes.Add(Chromosome.RandomChromosome(org, 50));
+        chromes.times(i => {
+            chromosomes.Add(Chromosome.RandomChromosome(org, chromeLength));
         });
-        
-    }
-
-    public int Count {
-        get {
-            return genes.Count;
-        }
-    }
-
-    public List<Gene> genes {
-        get {
-            return (from c in chromosomes
-                    from g in c.genes
-                    select g).ToList();
-        }
+        GeneParser.queue.Enqueue(
+            new GeneParser.GeneParserData {
+                organism = org,
+                sequence = sequence
+            });
     }
 
     public string sequence {
@@ -50,21 +42,16 @@ public class Genome {
                 }
             }
 
-            indexes.Count.times((i) => {
+            foreach (var i in indexes) {
                 half.Add(chromosomes[i]);
-            });
+            }
+
             return half;
         }
     }
 
     public bool Equals(Genome gen) {
-        bool equal = true;
-        chromosomes.Count.times(i => {
-            if (!gen.chromosomes[i].genes.SequenceEqual(chromosomes[i].genes)) {
-                equal = false;
-            }
-        });
-        return equal;
+        return sequence == gen.sequence;
     }
 
     public Genome Clone(Organism org) {

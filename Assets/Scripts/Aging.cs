@@ -28,10 +28,6 @@ public class Aging : MonoBehaviour {
                 age += Time.deltaTime;
             });
 
-        update
-            .Where(_ => decay < 1)
-            .Subscribe(_ => Debug.Log(decay));
-
         //update color according to age
         update
             .Subscribe(_ => {

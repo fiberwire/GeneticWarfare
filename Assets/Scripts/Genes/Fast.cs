@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Genes {
-    class Fast : Gene {
-        Organism org;
+    class Fast : Gene { 
         float moveSpeed;
 
-        public Fast(Organism org, float magnitude) {
+        public Fast(Organism org, int magnitude): base(org, magnitude) {
             word = "fast";
-            this.org = org;
-            moveSpeed = org.genetics.moveSpeed.absDiff(Mathf.Max(0.15f, org.genetics.moveSpeed * Random.Range(1f, 1.03f)) * magnitude);
+
+            moveSpeed = getBonus(absoluteMin: 0.15f, randomMax: 1.03f);
         }
 
         public override void apply() {

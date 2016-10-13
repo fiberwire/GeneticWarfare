@@ -6,13 +6,11 @@ namespace Assets.Scripts.Genes {
         float maxHealth;
         float healthRegen;
 
-        Organism org;
-
-        public Healthy(Organism org, float magnitude) {
+        public Healthy(Organism org, int magnitude) : base(org, magnitude) {
             word = "healthy";
-            this.org = org;
-            maxHealth = org.genetics.maxHealth.absDiff(Mathf.Max(0.3f, org.genetics.maxHealth * Random.Range(1f, 1.01f) * magnitude));
-            healthRegen = org.genetics.healthRegen.absDiff(Mathf.Max(0.15f, org.genetics.healthRegen * Random.Range(1f, 1.01f) * magnitude));
+
+            maxHealth = getBonus(absoluteMin: 0.3f, randomMax: 1.01f);
+            healthRegen = getBonus(absoluteMin: 0.15f, randomMax: 1.01f);
         }
 
         public override void apply() {

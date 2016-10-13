@@ -7,7 +7,7 @@ public class Aging : MonoBehaviour {
     public Organism organism;
 
     public float age;
-    public SpriteRenderer renderer;
+    public SpriteRenderer sr;
     public Color colorNormal, colorOld;
 
     public float decay {
@@ -35,7 +35,7 @@ public class Aging : MonoBehaviour {
         //update color according to age
         update
             .Subscribe(_ => {
-                renderer.color = new Color(
+                sr.color = new Color(
                     r: Mathf.Lerp(colorNormal.r, colorOld.r, 1 - decay),
                     b: Mathf.Lerp(colorNormal.b, colorOld.b, 1 - decay),
                     g: Mathf.Lerp(colorNormal.g, colorOld.g, 1 - decay),

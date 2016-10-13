@@ -66,4 +66,19 @@ public static class ExtensionMethods {
 
         return sum / v.Count;
     }
+
+    public static string makeString(this IEnumerable<char> chars) {
+        string result = "";
+
+        foreach (var c in chars) {
+            result += c;
+        }
+
+        return result;
+    }
+
+    public static IEnumerable<string> ChunksUpto(this string str, int maxChunkSize) {
+        for (int i = 0; i < str.Length; i += maxChunkSize)
+            yield return str.Substring(i, Mathf.Min(maxChunkSize, str.Length - i));
+    }
 }

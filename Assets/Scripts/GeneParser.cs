@@ -103,7 +103,7 @@ public class GeneParser : MonoBehaviour {
         return getGeneFromWord(data.word, data.organism, data.magnitude);
     }
 
-    private Gene getGeneFromWord(string word, Organism org, float magnitude) {
+    private Gene getGeneFromWord(string word, Organism org, int magnitude) {
         switch (word) {
             case "big":
                 return new Big(org, magnitude);

@@ -41,11 +41,14 @@ public class Organism : MonoBehaviour {
 
         cam = Camera.main.GetComponent<GuideCamera>();
 
-        if (genome == null) genome = new Genome(this);
+        var seq = "";
+        //50.times(i => seq += "big");
+        if (genome == null) genome = new Genome(this, seq: seq);
+        Debug.Log(genome.sequence);
 
         move().ToObservable().Subscribe();
         regenHealth().ToObservable().Subscribe();
-        
+
     }
 
     IEnumerator regenHealth() {

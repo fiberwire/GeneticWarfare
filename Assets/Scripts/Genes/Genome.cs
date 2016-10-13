@@ -7,20 +7,37 @@ public class Genome {
 
     public Organism organism;
 
-    public Genome(Organism org, int chromes = 50, int chromeLength = 50) {
+    public Genome(Organism org, int chromes = 50, int chromeLength = 50, string seq = "") {
         organism = org;
 
         chromosomes = new List<Chromosome>();
-        chromes.times(i => {
-            chromosomes.Add(Chromosome.RandomChromosome(org, chromeLength));
-        });
-        GeneParser.queue.Enqueue(
-            new GeneParser.GeneParserData {
-                organism = org,
-                sequence = sequence
+
+        if (seq.Equals("")) { //if no sequence is given, generate random one
+            chromes.times(i => {
+                chromosomes.Add(Chromosome.RandomChromosome(org, chromeLength));
             });
+        } else { //if sequence is given, split into chromosomes
+            if (seq.Length > chromeLength) {
+                Debug.Log($"sequence is longer than {chromeLength}");
+                chromosomes.AddRange(splitSequenceIntoChromosomes(org, seq, chromeLength));
+                Debug.Log($"Chromosomes: {chromosomes.Count}");
+            } else {
+                chromosomes.Add(new Chromosome(org, seq));
+            }
+        }
+
+        GeneParser.parse(this);
     }
 
+    public List<Chromosome> splitSequenceIntoChromosomes(Organism org, string seq, int chromeLength) {
+        var chromosomes = new List<Chromosome>();
+        
+        foreach (var subSeq in seq.ChunksUpto(chromeLength)) {
+            chromosomes.Add(new Chromosome(org, subSeq));
+        }
+
+        return chromosomes;
+    }
     public string sequence {
         get {
             var list = (from c in chromosomes select c.sequence).ToList();

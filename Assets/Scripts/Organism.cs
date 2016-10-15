@@ -28,8 +28,16 @@ public class Organism : MonoBehaviour {
 
     public int genomeCount;
 
+    private IObservable<long> update;
+    private System.IDisposable rotate, move, newTarget;
+    Vector2 target;
     // Use this for initialization
     void Start() {
+        update = Observable.EveryUpdate();
+
+        newTarget = FindNewTarget();
+        move = Move();
+        rotate = Rotate();
 
         OnDeath += () => {
             Destroy(gameObject);
@@ -40,13 +48,8 @@ public class Organism : MonoBehaviour {
         };
 
         cam = Camera.main.GetComponent<GuideCamera>();
+        if (genome == null) genome = new Genome(this);
 
-        var seq = "";
-        //50.times(i => seq += "big");
-        if (genome == null) genome = new Genome(this, seq: seq);
-        Debug.Log(genome.sequence);
-
-        move().ToObservable().Subscribe();
         regenHealth().ToObservable().Subscribe();
 
     }
@@ -69,6 +72,33 @@ public class Organism : MonoBehaviour {
         }
     }
 
+    private System.IDisposable Move() {
+        return update
+            .Where(_ => !ReachedTarget(target))
+            .Subscribe(_ => {
+                transform.MoveTowards(target, stats.MoveSpeed);
+            });
+    }
+
+    private System.IDisposable Rotate() {
+        return update
+            .Subscribe(_ => {
+                transform.LerpRotateTowards(target, 1f);
+            });
+    }
+
+    private System.IDisposable FindNewTarget() {
+        return update
+            .Where(_ => ReachedTarget(target))
+            .Subscribe(_ => {
+                target = getTarget();
+            });
+    }
+
+    private bool ReachedTarget(Vector2 target) {
+        return Vector2.Distance(transform.position, target) <= Random.Range(0.05f, 0.5f);
+    }
+
     /*
      * Movement works like this:
      * organism has a main target that it's trying to reach
@@ -77,7 +107,7 @@ public class Organism : MonoBehaviour {
      * if it is, the organism moves towards its intermediate target until it reaches it, 
      * then it chooses another intermediate target, and moves towards it,
      * repeat until the organism arrives at its main target
-     */
+     
     IEnumerator move() {
         while (true) {
             var target = getTarget(); //overall goal of movement
@@ -108,6 +138,8 @@ public class Organism : MonoBehaviour {
                             Mathf.Lerp(transform.position.y, target.y, stats.MoveSpeed * Time.deltaTime * Random.Range(0.5f, 1.5f))
                         );
     }
+
+    */
 
     Vector2 getTarget() {
         //will eventually return a target of interest (such as food, or a potential mate), or a random target if there are none in range

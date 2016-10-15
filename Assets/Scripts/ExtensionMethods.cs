@@ -221,4 +221,15 @@ public static class ExtensionMethods {
         }
         return ints;
     }
+
+    //get all substrings of a string
+    public static List<string> substrings(this string str) {
+
+        List<string> subs = new List<string>();
+
+        str.Length.times(i => {
+            subs.Add(str.Substring(0, i + 1));
+        });
+        return subs;
+    }
 }

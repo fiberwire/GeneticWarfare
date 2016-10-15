@@ -3,68 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class Genome {
-    public List<Chromosome> chromosomes;
 
     public Unit unit;
+    public string sequence;
 
-    public Genome(Unit unit, int chromes = 50, int chromeLength = 50, string seq = "") {
+    public Genome(Unit unit, string seq = null, int length = 100) {
         this.unit = unit;
-
-        chromosomes = new List<Chromosome>();
-
-        if (seq.Equals("")) { //if no sequence is given, generate random one
-            chromes.times(i => {
-                chromosomes.Add(Chromosome.RandomChromosome(unit, chromeLength));
-            });
-        } else { //if sequence is given, split into chromosomes
-            if (seq.Length > chromeLength) {
-                Debug.Log($"sequence is longer than {chromeLength}");
-                chromosomes.AddRange(splitSequenceIntoChromosomes(unit, seq, chromeLength));
-                Debug.Log($"Chromosomes: {chromosomes.Count}");
-            } else {
-                chromosomes.Add(new Chromosome(unit, seq));
-            }
-        }
-
+        sequence = seq ?? RandomSequence(length);
         GeneParser.parse(this);
     }
 
-    public List<Chromosome> splitSequenceIntoChromosomes(Unit unit, string seq, int chromeLength) {
-        var chromosomes = new List<Chromosome>();
-        
-        foreach (var subSeq in seq.ChunksUpto(chromeLength)) {
-            chromosomes.Add(new Chromosome(unit, subSeq));
-        }
+    private string RandomSequence(int length) {
+        var letters = "abcdefghijklmnopqrstuvwxyz".Split();
+        var seq = "";
 
-        return chromosomes;
-    }
-    public string sequence {
-        get {
-            var list = (from c in chromosomes select c.sequence).ToList();
-            var seq = "";
-            foreach (var s in list) seq += s;
-            return seq;
-        }
-    }
+        length.times(i => seq += letters.random());
 
-    //get a random half of the genome, for reproduction purposes
-    public List<Chromosome> inheritance {
-        get {
-            Queue<int> indexes = new Queue<int>();
-            List<Chromosome> half = new List<Chromosome>();
-            while (indexes.Count < chromosomes.Count) {
-                int i = Random.Range(0, chromosomes.Count - 1);
-                if (!indexes.Contains(i)) {
-                    indexes.Enqueue(i);
-                }
-            }
-
-            foreach (var i in indexes) {
-                half.Add(chromosomes[i]);
-            }
-
-            return half;
-        }
+        return seq;
     }
 
     public bool Equals(Genome gen) {
@@ -73,7 +28,7 @@ public class Genome {
 
     public Genome Clone(Unit unit) {
         return new Genome(unit) {
-            chromosomes = chromosomes
+            sequence = sequence
         };
     }
 }

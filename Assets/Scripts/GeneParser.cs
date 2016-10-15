@@ -69,21 +69,11 @@ public class GeneParser : MonoBehaviour {
         });
     }
 
-    public List<string> substrings(string str) {
-
-        List<string> subs = new List<string>();
-
-        str.Length.times(i => {
-            subs.Add(str.Substring(0, i + 1));
-        });
-        return subs;
-    }
-
     public GeneData occurences(GeneParserData data, string word) {
         var occasions = new List<int>();
         //find occurences of substring in sequence
 
-        var subs = substrings(word);
+        var subs = word.substrings();
 
         foreach (var s in subs) {
             //Debug.Log($"{s} occurs in {data.sequence} {data.sequence.countOccurences(s)} times");

@@ -33,46 +33,25 @@ public class Stats : MonoBehaviour {
     public float healthRegenDecayFactor;
 
     //stats properties
-    public float MaxHealth { get { return (maxHealth + genetics.maxHealth) * HealthDecayFactor; } }
-    public float MaxEnergy { get { return (maxEnergy + genetics.maxEnergy) * EnergyDecayFactor; } }
+    public float MaxHealth { get { return (maxHealth + genetics.maxHealth) * decayFactor; } }
+    public float MaxEnergy { get { return (maxEnergy + genetics.maxEnergy) * decayFactor; } }
     public float Longevity { get { return longevity + genetics.longevity; } }
     public float EnergyReq { get { return metabolicRate + genetics.metabolicRate; } }
-    public float MoveSpeed { get { return (moveSpeed + genetics.moveSpeed) * MoveSpeedDecayFactor; } }
+    public float MoveSpeed { get { return (moveSpeed + genetics.moveSpeed) * decayFactor; } }
     public float ReproductionRate { get { return reproductionRate + genetics.reproductionRate; } }
-    public float Size { get { return (size + genetics.size) * SizeDecayFactor; } }
-    public float HealthRegen { get { return (healthRegen + genetics.healthRegen) * HealthRegenDecayFactor; } }
+    public float Size { get { return (size + genetics.size) * decayFactor; } }
+    public float HealthRegen { get { return (healthRegen + genetics.healthRegen) * decayFactor; } }
 
-    public float HealthDecayFactor {
+    private float decayFactor {
         get {
-            return Mathf.Lerp(0.1f, healthDecayFactor + genetics.healthDecayFactor, Mathf.Max(aging.decay, .8f));
-        }
-    }
-    public float HealthRegenDecayFactor {
-        get {
-            return Mathf.Lerp(0.1f, healthRegenDecayFactor + genetics.healthRegenDecayFactor, Mathf.Max(aging.decay, .8f));
-        }
-    }
-
-    public float SizeDecayFactor {
-        get {
-            return Mathf.Lerp(0.1f, sizeDecayFactor + genetics.sizeDecayFactor, Mathf.Max(aging.decay, .8f));
-        }
-    }
-
-    public float EnergyDecayFactor {
-        get {
-            return Mathf.Lerp(0.1f, energyDecayFactor + genetics.energyDecayFactor, Mathf.Max(aging.decay, .8f));
-        }
-    }
-
-    public float MoveSpeedDecayFactor {
-        get {
-            return Mathf.Lerp(0.1f, moveSpeedDecayFactor + genetics.moveSpeedDecayFactor, Mathf.Max(aging.decay, .8f));
+            var factor = Mathf.Clamp(aging.decay, 0.8f, 1f);
+            return factor;
         }
     }
 
     void Start() {
         apply().ToObservable().Subscribe();
+        
     }
 
     IEnumerator apply() {

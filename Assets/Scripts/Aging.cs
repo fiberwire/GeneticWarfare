@@ -12,9 +12,8 @@ public class Aging : MonoBehaviour {
 
     public float decay {
         get {
-            var decay = 1 - (age - (organism.stats.Longevity * 4 / 5)) / (organism.stats.Longevity / 5);
-            var clamped = Mathf.Clamp(decay, 0, 1);
-            return clamped;
+            var decay = 1 - ((age - (organism.stats.Longevity * 4 / 5)) / (organism.stats.Longevity / 5));
+            return Mathf.Max(0f, decay);
         }
     }
 
@@ -38,6 +37,15 @@ public class Aging : MonoBehaviour {
                     a: Mathf.Lerp(colorNormal.a, colorOld.a, 1 - decay));
 
             });
+
+        //damage organism over time depending on decay
+        update
+            .Where(_ => decay < 0.8f)
+            .Subscribe(_ => {
+                var damage = organism.maxHealth * 0.05f * (1 - decay) * Time.deltaTime;
+                Debug.Log($"Old Age Damage: {damage}");
+                organism.DoDamage(damage);
+        });
 
     }
 

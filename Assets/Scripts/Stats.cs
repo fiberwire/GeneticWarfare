@@ -50,22 +50,28 @@ public class Stats : MonoBehaviour {
     }
 
     void Start() {
-        apply().ToObservable().Subscribe();
-        
-    }
+        var update = Observable
+            .EveryUpdate();
 
-    IEnumerator apply() {
-        while (true) {
-            transform.localScale = new Vector2(Size, Size);
-            applyHealthAndEnergy();
-            yield return null;
-        }
+        update
+            .Subscribe(_ => {
+                transform.localScale = new Vector2(Size, Size);
+                applyHealthAndEnergy();
+            });
+        
     }
 
     void applyHealthAndEnergy() {
         if (organism.initializedHealthAndEnergy) {
+            /*
+             * MaxHealth is the variable that determines the organism's max health.
+             * if MaxHealth drops from something e.g. decay, then it will bring down the ratio, 
+             * which organism.maxHealth will be multiplied by,
+             * which will bring the two back in line.
+             * same for energy.
+             */ 
             //scale health and energy with maxHealth and maxEnergy so that they maintain their ratio
-            float healthRatio = MaxHealth / organism.maxHealth;
+            float healthRatio = MaxHealth / organism.maxHealth; 
             float energyRatio = MaxEnergy / organism.maxEnergy;
             organism.maxHealth *= healthRatio;
             organism.health *= healthRatio;

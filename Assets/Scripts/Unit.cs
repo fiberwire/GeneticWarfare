@@ -2,7 +2,7 @@
 using System.Collections;
 using UniRx;
 
-public class Organism : MonoBehaviour {
+public class Unit : MonoBehaviour {
 
     public delegate void LifeCycleEvent();
 
@@ -101,12 +101,12 @@ public class Organism : MonoBehaviour {
 
     /*
      * Movement works like this:
-     * organism has a main target that it's trying to reach
+     * unit has a main target that it's trying to reach
      * it picks an intermediate target randomly
      * it checks if that target is closer to its main target than its current position
-     * if it is, the organism moves towards its intermediate target until it reaches it, 
+     * if it is, the unit moves towards its intermediate target until it reaches it, 
      * then it chooses another intermediate target, and moves towards it,
-     * repeat until the organism arrives at its main target
+     * repeat until the unit arrives at its main target
      
     IEnumerator move() {
         while (true) {
@@ -144,7 +144,7 @@ public class Organism : MonoBehaviour {
     Vector2 getTarget() {
         //will eventually return a target of interest (such as food, or a potential mate), or a random target if there are none in range
         //range will be determined by a stat, which will be increased by genes
-        //a better range stat will make for a more fit organism because it will be able to search greater areas for food/mates
+        //a better range stat will make for a more fit unit because it will be able to search greater areas for food/mates
         return randomTarget();
     }
 
@@ -162,12 +162,12 @@ public class Organism : MonoBehaviour {
     public void DoDamage(float damage) {
         if (!initializedHealthAndEnergy) return;
 
-        if (health > damage) { //if damage won't kill organism
+        if (health > damage) { //if damage won't kill unit
             health -= damage;
             if (OnDamage != null) {
                 OnDamage();
             }
-        } else { //if damage will kill organism
+        } else { //if damage will kill unit
             health = 0;
             if (OnDeath != null) {
                 OnDeath();

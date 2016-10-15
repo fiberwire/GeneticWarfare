@@ -4,14 +4,14 @@ namespace Assets.Scripts.Genes {
     class Fast : Gene { 
         float moveSpeed;
 
-        public Fast(Organism org, int magnitude): base(org, magnitude) {
+        public Fast(Unit unit, int magnitude): base(unit, magnitude) {
             word = "fast";
 
             moveSpeed = getBonus(absoluteMin: 0.15f, randomMax: 1.03f);
         }
 
         public override void apply() {
-            org.genetics.moveSpeed += moveSpeed;
+            unit.genetics.moveSpeed += moveSpeed;
         }
     }
 }

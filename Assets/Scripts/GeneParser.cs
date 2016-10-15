@@ -12,13 +12,13 @@ public class GeneParser : MonoBehaviour {
 
     public struct GeneParserData {
         public string sequence;
-        public Organism organism;
+        public Unit unit;
     }
 
     public struct GeneData {
         public string word;
         public int magnitude;
-        public Organism organism;
+        public Unit unit;
     }
 
     public static Queue<GeneParserData> queue;
@@ -34,7 +34,7 @@ public class GeneParser : MonoBehaviour {
     public static void parse(Genome gen) {
         queue.Enqueue(
             new GeneParserData {
-                organism = gen.organism,
+                unit = gen.unit,
                 sequence = gen.sequence
             });
     }
@@ -45,7 +45,7 @@ public class GeneParser : MonoBehaviour {
                 var data = queue.Dequeue();
                 var parse = parseSequence(data)
                     .Subscribe(gdata => {
-                        gdata[0].organism.genetics.reset();
+                        gdata[0].unit.genetics.reset();
                         foreach (var g in gdata) {
                             createGene(g).apply();
                         }
@@ -93,24 +93,24 @@ public class GeneParser : MonoBehaviour {
         return new GeneData {
             word = word,
             magnitude = occasions.Sum(),
-            organism = data.organism
+            unit = data.unit
         };
 
     }
 
     private Gene createGene(GeneData data) {
-        Debug.Log($"Creating gene: {data.word}:{data.magnitude} on {data.organism.name}");
-        return getGeneFromWord(data.word, data.organism, data.magnitude);
+        Debug.Log($"Creating gene: {data.word}:{data.magnitude} on {data.unit.name}");
+        return getGeneFromWord(data.word, data.unit, data.magnitude);
     }
 
-    private Gene getGeneFromWord(string word, Organism org, int magnitude) {
+    private Gene getGeneFromWord(string word, Unit unit, int magnitude) {
         switch (word) {
             case "big":
-                return new Big(org, magnitude);
+                return new Big(unit, magnitude);
             case "fast":
-                return new Fast(org, magnitude);
+                return new Fast(unit, magnitude);
             case "healthy":
-                return new Healthy(org, magnitude);
+                return new Healthy(unit, magnitude);
             default: return null;
         }
     }

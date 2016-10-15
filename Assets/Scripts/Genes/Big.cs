@@ -11,7 +11,7 @@ namespace Assets.Scripts.Genes {
         float maxHealth; //increase max health once it is added as a stat
         float moveSpeed;
 
-        public Big(Organism org, int magnitude) : base(org, magnitude) {
+        public Big(Unit unit, int magnitude) : base(unit, magnitude) {
             word = "big";
 
             size = getBonus(randomMax: 1.075f);
@@ -20,14 +20,14 @@ namespace Assets.Scripts.Genes {
             metabolicRate = getBonus();
 
             //still need to get subtractive gene components working
-            //moveSpeed = org.genetics.moveSpeed.absDiff(Mathf.Max(0.01f, org.genetics.moveSpeed * UnityEngine.Random.Range(0f, 0.0025f) * magnitude));
+            //moveSpeed = unit.genetics.moveSpeed.absDiff(Mathf.Max(0.01f, unit.genetics.moveSpeed * UnityEngine.Random.Range(0f, 0.0025f) * magnitude));
         }
 
         public override void apply() {
-            org.genetics.size += size;
-            org.genetics.moveSpeed += moveSpeed;
-            org.genetics.maxHealth += maxHealth;
-            org.genetics.metabolicRate += metabolicRate;
+            unit.genetics.size += size;
+            unit.genetics.moveSpeed += moveSpeed;
+            unit.genetics.maxHealth += maxHealth;
+            unit.genetics.metabolicRate += metabolicRate;
         }
     }
 }

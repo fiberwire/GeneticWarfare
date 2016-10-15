@@ -6,11 +6,11 @@ using System.Linq;
 public abstract class Gene {
     public string word;
     public abstract void apply();
-    public Organism org;
+    public Unit unit;
     public int magnitude;
 
-    public Gene(Organism org, int magnitude) {
-        this.org = org;
+    public Gene(Unit unit, int magnitude) {
+        this.unit = unit;
         this.magnitude = magnitude;
     }
 

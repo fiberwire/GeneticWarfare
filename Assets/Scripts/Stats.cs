@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stats : MonoBehaviour {
 
     public Aging aging;
-    public Organism organism;
+    public Unit unit;
     public Genetics genetics;
 
     //base stats
@@ -18,7 +18,7 @@ public class Stats : MonoBehaviour {
     public float size;
     public float healthRegen;
 
-    //decay factors - represents the ratio between the maximum and final values based on age (organisms will get smaller and more frail in their old age)
+    //decay factors - represents the ratio between the maximum and final values based on age (units will get smaller and more frail in their old age)
     public float sizeDecayFactor;
     public float healthDecayFactor;
     public float energyDecayFactor;
@@ -54,27 +54,27 @@ public class Stats : MonoBehaviour {
     }
 
     void applyHealthAndEnergy() {
-        if (organism.initializedHealthAndEnergy) {
+        if (unit.initializedHealthAndEnergy) {
             /*
-             * MaxHealth is the variable that determines the organism's max health.
+             * MaxHealth is the variable that determines the unit's max health.
              * if MaxHealth drops from something e.g. decay, then it will bring down the ratio, 
-             * which organism.maxHealth will be multiplied by,
+             * which unit.maxHealth will be multiplied by,
              * which will bring the two back in line.
              * same for energy.
              */ 
             //scale health and energy with maxHealth and maxEnergy so that they maintain their ratio
-            float healthRatio = MaxHealth / organism.maxHealth; 
-            float energyRatio = MaxEnergy / organism.maxEnergy;
-            organism.maxHealth *= healthRatio;
-            organism.health *= healthRatio;
-            organism.maxEnergy *= energyRatio;
-            organism.energy *= energyRatio;
+            float healthRatio = MaxHealth / unit.maxHealth; 
+            float energyRatio = MaxEnergy / unit.maxEnergy;
+            unit.maxHealth *= healthRatio;
+            unit.health *= healthRatio;
+            unit.maxEnergy *= energyRatio;
+            unit.energy *= energyRatio;
         } else if (MaxHealth != 0 && MaxEnergy != 0) {
-            organism.maxHealth = MaxHealth;
-            organism.maxEnergy = MaxEnergy;
-            organism.health = organism.maxHealth;
-            organism.energy = organism.maxEnergy;
-            organism.initializedHealthAndEnergy = true;
+            unit.maxHealth = MaxHealth;
+            unit.maxEnergy = MaxEnergy;
+            unit.health = unit.maxHealth;
+            unit.energy = unit.maxEnergy;
+            unit.initializedHealthAndEnergy = true;
         }
     }
 }

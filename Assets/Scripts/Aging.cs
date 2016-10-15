@@ -4,7 +4,7 @@ using UniRx;
 
 public class Aging : MonoBehaviour {
 
-    public Organism organism;
+    public Unit unit;
 
     public float age;
     public SpriteRenderer sr;
@@ -12,7 +12,7 @@ public class Aging : MonoBehaviour {
 
     public float decay {
         get {
-            var decay = 1 - ((age - (organism.stats.Longevity * 4 / 5)) / (organism.stats.Longevity / 5));
+            var decay = 1 - ((age - (unit.stats.Longevity * 4 / 5)) / (unit.stats.Longevity / 5));
             return Mathf.Max(0f, decay);
         }
     }
@@ -38,13 +38,13 @@ public class Aging : MonoBehaviour {
 
             });
 
-        //damage organism over time depending on decay
+        //damage unit over time depending on decay
         update
             .Where(_ => decay < 0.8f)
             .Subscribe(_ => {
-                var damage = organism.maxHealth * 0.05f * (1 - decay) * Time.deltaTime;
+                var damage = unit.maxHealth * 0.05f * (1 - decay) * Time.deltaTime;
                 Debug.Log($"Old Age Damage: {damage}");
-                organism.DoDamage(damage);
+                unit.DoDamage(damage);
         });
 
     }

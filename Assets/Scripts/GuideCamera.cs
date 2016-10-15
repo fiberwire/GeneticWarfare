@@ -16,10 +16,10 @@ public class GuideCamera : MonoBehaviour {
     public float top { get { return Camera.main.ViewportToWorldPoint(new Vector2(0, 1 - topMargin)).y; } }
     public float bottom { get { return Camera.main.ViewportToWorldPoint(new Vector2(0, 0 + bottomMargin)).y; } }
 
-    public float averageOrganismSize {
+    public float averageUnitSize {
         get {
-            List<GameObject> orgs = (from o in GameObject.FindGameObjectsWithTag("Organism") select o).ToList();
-            return (from o in orgs select o.transform.localScale).ToList().Average();
+            List<GameObject> units = (from o in GameObject.FindGameObjectsWithTag("Unit") select o).ToList();
+            return (from o in units select o.transform.localScale).ToList().Average();
         }
     }
 
@@ -30,10 +30,10 @@ public class GuideCamera : MonoBehaviour {
 
     IEnumerator autozoom() {
         while (true) {
-            float size = averageOrganismSize;
+            float size = averageUnitSize;
             yield return null;
 
-            //zoom camera based on average organism size
+            //zoom camera based on average unit size
             Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, size * zoomRatio, Time.deltaTime);
             yield return null;
         }

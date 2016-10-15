@@ -6,7 +6,7 @@ namespace Assets.Scripts.Genes {
         float maxHealth;
         float healthRegen;
 
-        public Healthy(Organism org, int magnitude) : base(org, magnitude) {
+        public Healthy(Unit unit, int magnitude) : base(unit, magnitude) {
             word = "healthy";
 
             maxHealth = getBonus(absoluteMin: 0.3f, randomMax: 1.01f);
@@ -14,8 +14,8 @@ namespace Assets.Scripts.Genes {
         }
 
         public override void apply() {
-            org.genetics.maxHealth += maxHealth;
-            org.genetics.healthRegen += healthRegen;
+            unit.genetics.maxHealth += maxHealth;
+            unit.genetics.healthRegen += healthRegen;
         }
     }
 }

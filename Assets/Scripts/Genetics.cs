@@ -5,7 +5,7 @@ public class Genetics : MonoBehaviour {
 
     public Stats stats;
     public Aging aging;
-    public Organism organism;
+    public Unit unit;
 
     //genetic bonuses
     public float maxHealth;

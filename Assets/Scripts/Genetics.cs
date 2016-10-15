@@ -13,17 +13,8 @@ public class Genetics : MonoBehaviour {
     public float longevity;
     public float metabolicRate;
     public float moveSpeed;
-    public float reproductionRate;
     public float size;
-    public float initialMaturity;
     public float healthRegen;
-
-    //growth factors
-    public float healthGrowthFactor;
-    public float sizeGrowthFactor;
-    public float energyGrowthFactor;
-    public float moveSpeedGrowthFactor;
-    public float healthRegenGrowthFactor;
 
     //decay factors
     public float healthDecayFactor;
@@ -44,9 +35,7 @@ public class Genetics : MonoBehaviour {
         longevity = 0;
         metabolicRate = 0;
         moveSpeed = 0;
-        reproductionRate = 0;
         size = 0;
-        initialMaturity = 0;
         healthRegen = 0;
     }
 }

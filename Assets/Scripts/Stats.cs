@@ -18,13 +18,6 @@ public class Stats : MonoBehaviour {
     public float size;
     public float healthRegen;
 
-    //growth factors - represents the ratio between the minimum and maximum values based on age
-    public float sizeGrowthFactor;
-    public float healthGrowthFactor;
-    public float energyGrowthFactor;
-    public float moveSpeedGrowthFactor;
-    public float healthRegenGrowthFactor;
-
     //decay factors - represents the ratio between the maximum and final values based on age (organisms will get smaller and more frail in their old age)
     public float sizeDecayFactor;
     public float healthDecayFactor;
@@ -38,7 +31,6 @@ public class Stats : MonoBehaviour {
     public float Longevity { get { return longevity + genetics.longevity; } }
     public float EnergyReq { get { return metabolicRate + genetics.metabolicRate; } }
     public float MoveSpeed { get { return (moveSpeed + genetics.moveSpeed) * decayFactor; } }
-    public float ReproductionRate { get { return reproductionRate + genetics.reproductionRate; } }
     public float Size { get { return (size + genetics.size) * decayFactor; } }
     public float HealthRegen { get { return (healthRegen + genetics.healthRegen) * decayFactor; } }
 
